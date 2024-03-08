@@ -15,23 +15,22 @@ import com.picpaysimplificado.domain.users.User;
 import com.picpaysimplificado.dtos.UserDTO;
 import com.picpaysimplificado.services.UserService;
 
-@RestController
+@RestController()
 @RequestMapping("/users")
 public class UserController {
-	
-	@Autowired
-	private UserService userService;
-	
-	@PostMapping
-	public ResponseEntity<User> createUser(@RequestBody UserDTO user){
-		User newUser = userService.createUser(user);
-		return new ResponseEntity<>(newUser, HttpStatus.CREATED);
-	}
-	
-	@GetMapping
-	public ResponseEntity<List<User>>getAllUsers(){
-		List <User> users =  userService.getAllUsers();
-		return new ResponseEntity<> (users, HttpStatus.OK);
-	}
 
+    @Autowired
+    private UserService userService;
+
+    @PostMapping
+    public ResponseEntity<User> createUser(@RequestBody UserDTO user){
+        User newUser = userService.createUser(user);
+        return new ResponseEntity<>(newUser, HttpStatus.CREATED);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<User>> getAllUsers(){
+        List<User> users = this.userService.getAllUsers();
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
 }

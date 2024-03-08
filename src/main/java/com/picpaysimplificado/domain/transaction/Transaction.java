@@ -1,6 +1,5 @@
 package com.picpaysimplificado.domain.transaction;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -18,26 +17,21 @@ import jakarta.persistence.Table;
 @Entity(name = "transactions")
 @Table(name = "transactions")
 
-public class Transaction implements Serializable{
-	
-	private static final long serialVersionUID = 1L;
-	
+public class Transaction {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private BigDecimal amount;
-	
 	@ManyToOne
 	@JoinColumn(name = "sender_id")
 	private User sender;
-	
 	@ManyToOne
 	@JoinColumn(name = "receiver_id")
 	private User receiver;
 	private LocalDateTime timestamp;
-	
+
 	public Transaction() {
-		
+
 	}
 
 	public Transaction(Long id, BigDecimal amount, User sender, User receiver, LocalDateTime timestamp) {
@@ -91,7 +85,7 @@ public class Transaction implements Serializable{
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(amount, id, receiver, sender, timestamp);
+		return Objects.hash(id);
 	}
 
 	@Override
@@ -103,10 +97,7 @@ public class Transaction implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Transaction other = (Transaction) obj;
-		return Objects.equals(amount, other.amount) && Objects.equals(id, other.id)
-				&& Objects.equals(receiver, other.receiver) && Objects.equals(sender, other.sender)
-				&& Objects.equals(timestamp, other.timestamp);
+		return Objects.equals(id, other.id);
 	}
-	
 
 }

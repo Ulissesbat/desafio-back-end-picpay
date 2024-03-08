@@ -1,6 +1,5 @@
 package com.picpaysimplificado.domain.users;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -15,40 +14,33 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-@Entity(name = "users")
-@Table (name = "users")
+@Entity(name="users")
+@Table(name="users")
 
-public class User implements Serializable{
-	
-	private static final long serialVersionUID = 1L;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private String firstName;
-	private String lastname;
-	
-	@Column(unique = true)
-	private String document;
-	
-	@Column(unique = true)
-	private String email;
-	private String password;
-	private BigDecimal balance;
-	
-	@Enumerated(EnumType.STRING)
-	private UserType userType;
-	
-	public User() {
-		
-	}
-
-	public User(Long id, String firstName, String lastname, String document, String email, String password,
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String firstName;
+    private String lastName;
+    @Column(unique=true)
+    private String document;
+    @Column(unique=true)
+    private String email;
+    private String password;
+    private BigDecimal balance;
+    @Enumerated(EnumType.STRING)
+    private UserType userType;
+    
+    public User () { 	
+    }
+    
+    public User(Long id, String firstName, String lastName, String document, String email, String password,
 			BigDecimal balance, UserType userType) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
-		this.lastname = lastname;
+		this.lastName = lastName;
 		this.document = document;
 		this.email = email;
 		this.password = password;
@@ -64,20 +56,20 @@ public class User implements Serializable{
 		this.id = id;
 	}
 
-	public String getName() {
+	public String getFirstName() {
 		return firstName;
 	}
 
-	public void setName(String name) {
-		this.firstName = name;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public String getLastname() {
-		return lastname;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public String getDocument() {
@@ -119,21 +111,12 @@ public class User implements Serializable{
 	public void setUserType(UserType userType) {
 		this.userType = userType;
 	}
+	
+	
 
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
-	}
-	
-	public User(UserDTO data) {
-		this.firstName = data.firstName();
-		this.lastname = data.lastName();
-		this.balance = data.balance();
-		this.userType = data.userType();
-		this.password = data.password();
-		this.document = data.document();
-		this.email = data.email();
-		
 	}
 
 	@Override
@@ -147,6 +130,14 @@ public class User implements Serializable{
 		User other = (User) obj;
 		return Objects.equals(id, other.id);
 	}
-	
-	
+
+	public User(UserDTO data){
+        this.firstName = data.firstName();
+        this.lastName = data.lastName();
+        this.balance = data.balance();
+        this.userType = data.userType();
+        this.password = data.password();
+        this.document = data.document();
+        this.email = data.email();
+    }
 }
