@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+import com.picpaysimplificado.dtos.UserDTO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -23,7 +25,7 @@ public class User implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String name;
+	private String firstName;
 	private String lastname;
 	
 	@Column(unique = true)
@@ -41,11 +43,11 @@ public class User implements Serializable{
 		
 	}
 
-	public User(Long id, String name, String lastname, String document, String email, String password,
+	public User(Long id, String firstName, String lastname, String document, String email, String password,
 			BigDecimal balance, UserType userType) {
 		super();
 		this.id = id;
-		this.name = name;
+		this.firstName = firstName;
 		this.lastname = lastname;
 		this.document = document;
 		this.email = email;
@@ -63,11 +65,11 @@ public class User implements Serializable{
 	}
 
 	public String getName() {
-		return name;
+		return firstName;
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		this.firstName = name;
 	}
 
 	public String getLastname() {
@@ -121,6 +123,17 @@ public class User implements Serializable{
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
+	}
+	
+	public User(UserDTO data) {
+		this.firstName = data.firstName();
+		this.lastname = data.lastName();
+		this.balance = data.balance();
+		this.userType = data.userType();
+		this.password = data.password();
+		this.document = data.document();
+		this.email = data.email();
+		
 	}
 
 	@Override
