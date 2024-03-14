@@ -17,11 +17,11 @@ public class UserService {
     private UserRepository repository;
 
     public void validateTransaction(User sender, BigDecimal amount) throws Exception {
-        if(sender.getUserType() == UserType.MERCHANT){
+        if (sender.getUserType() == UserType.MERCHANT) {
             throw new Exception("Usuário do tipo Lojista não está autorizado a realizar transação");
         }
 
-        if(sender.getBalance().compareTo(amount) < 0){
+        if (sender.getBalance().compareTo(amount) < 0) {
             throw new Exception("Saldo insuficiente");
         }
     }

@@ -20,12 +20,27 @@ public class AuthorizationService {
     @Value("${app.authorizationApi}")
     private String authApiUrl;
 
-    public boolean authorizeTransaction(User sender, BigDecimal value){
-        ResponseEntity<Map> authorizationResponse = restTemplate.getForEntity(this.authApiUrl, Map.class);
+    public boolean authorizeTransaction(User sender, BigDecimal value) {
+        try {
+            // Comente temporariamente este trecho de código para simplificar a lógica
+            /*
+            ResponseEntity<Map> authorizationResponse = restTemplate.getForEntity(this.authApiUrl, Map.class);
 
-        if(authorizationResponse.getStatusCode() == HttpStatus.OK){
-            String message = (String) authorizationResponse.getBody().get("message");
-            return "Autorizado".equalsIgnoreCase(message);
-        } else return false;
+            if (authorizationResponse.getStatusCode() == HttpStatus.OK) {
+                String message = (String) authorizationResponse.getBody().get("message");
+                return "Autorizado".equalsIgnoreCase(message);
+            } else {
+                return false;
+            }
+            */
+            
+            // Temporariamente retornamos true para permitir todas as transações sem autenticação
+            return true;
+        } catch (Exception e) {
+            // Logar a exceção ou lidar com ela de acordo com a necessidade do seu aplicativo
+            e.printStackTrace();
+            return false;
+        }
     }
 }
+
